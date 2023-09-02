@@ -1,0 +1,30 @@
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        HashMap<Integer,Boolean> present=new HashMap<>();
+        HashMap<Integer,Boolean> checked=new HashMap<>();
+
+        int longChain=0;
+        int currentChain=0;
+        for(Integer a:nums){
+            present.put(a,true);
+        }
+
+        for(Integer a:nums){
+
+            if(!checked.containsKey(a) && !present.containsKey(a-1)){
+
+                
+                int start=a;
+                currentChain=0;
+                while(present.containsKey(start)){
+                    currentChain++;
+                    checked.put(start,true);
+                    start++;
+                }
+            }
+            longChain=Math.max(longChain,currentChain);
+        }
+
+        return longChain;
+    }
+}
