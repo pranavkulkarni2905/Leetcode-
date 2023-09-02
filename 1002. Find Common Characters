@@ -1,0 +1,40 @@
+class Solution {
+    public List<String> commonChars(String[] words) {
+        
+        HashMap<Character,Integer> minFreqOverAll=new HashMap<>();
+
+        for(char ch='a';ch<='z';ch++){
+
+            minFreqOverAll.put(ch,1000);
+        }
+
+        for(String word:words){
+
+            HashMap<Character,Integer> freq=new HashMap<>();
+
+            for(char ch:word.toCharArray()){
+                freq.put(ch,freq.getOrDefault(ch,0)+1);
+
+            }
+
+            for(Character ch:minFreqOverAll.keySet()){
+                if(freq.containsKey(ch)){
+                      minFreqOverAll.put(ch,Math.min(minFreqOverAll.get(ch),freq.get(ch)));
+                }else{
+                    minFreqOverAll.put(ch,0);
+                }
+              
+            }
+        }
+
+        List<String> ans=new ArrayList<>();
+        for(Character ch:minFreqOverAll.keySet()){
+            if(minFreqOverAll.get(ch)>=1){
+                for(int i=0;i<minFreqOverAll.get(ch);i++){
+                    ans.add(ch+"");
+                }
+            }
+        }
+        return ans;
+    }
+}
