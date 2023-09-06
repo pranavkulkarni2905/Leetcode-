@@ -1,0 +1,39 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+import java.util.*;
+import java.lang.*;
+class MaxSum {
+    public static long digitSum(long no){
+        long sum=0;
+        while(no!=0){
+            sum=sum+no%10;
+            no=no/10;
+        }
+        return sum;
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        long arr[]=new long[n+1];
+        
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextLong();
+        }
+        
+        HashMap<Long,Long> map=new HashMap<>();
+        long answer=-1;
+        for(int i=0;i<n;i++){
+            
+            if(map.containsKey(digitSum(arr[i]))){
+                long sum=arr[i]+map.get(digitSum(arr[i]));
+                answer=Math.max(answer,sum);
+                map.put(digitSum(arr[i]),Math.max(map.get(digitSum(arr[i]))),arr[i]);
+            }else{
+                map.put(digitSum(arr[i]),arr[i]);
+            }
+        }
+        
+        System.out.println(answer);
+        
+    }
+}
