@@ -1,0 +1,42 @@
+class Solution {
+    public int minOperations(int[] nums, int x) {
+       
+       //sliding window mechanism
+
+       //TC= O(n)
+       //SC= O(1)
+       int start=0;
+       int end=0;
+
+       int totalSum=Arrays.stream(nums).sum();
+
+       if(totalSum==x){
+           return nums.length;
+       }
+
+
+       int sum_to_make= totalSum-x;
+
+
+       int sum=0;
+       int ans=0;
+
+       while(end<nums.length){
+
+           sum=sum+nums[end];
+
+            while(start<end && sum>sum_to_make){
+                sum=sum-nums[start];
+                start++;
+            }
+
+            if(sum==sum_to_make){
+                ans=Math.max(ans,end-start+1);
+            }
+
+           end++;
+       }
+
+        return ans==0 ? -1 :nums.length-ans;
+    }
+}
